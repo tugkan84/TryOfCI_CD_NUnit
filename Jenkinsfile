@@ -1,8 +1,8 @@
 properties([pipelineTriggers([githubPush()])])
-
+def imageName = 'try_ci_cd'
 node {
     stage ('Checkout'){
-        git branch: 'docker', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
+        git branch: 'master', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
     }
      stage("Build"){
         sh 'dotnet build'
@@ -14,7 +14,19 @@ node {
     //     echo "Hello"
     //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
     // }
-    stage("Push to Docker"){
-        sh 'git push origin master'
+
+    stage("Docker Build") {
+        dir("./src") {
+            sh 'docker build --rm -f "Dockerfile" -t try_ci_cd .'
+        }
+        sh "docker tag tryofci_cd_nunit:latest ${imageName}:${buildNumber}"
     }
+    stage("Docker Push"){
+        withCredentials([string(credentialsId: '63579a04-67b2-4b24-a646-6b2b330829be', variable: 'GITLAB_TOKEN')]) {
+            sh "docker login ${registryUrl} -u birkanazimech -p $GITLAB_TOKEN"
+            sh "docker push ${imageName}:latest"
+            sh "docker push ${imageName}:${buildNumber}"
+        }
+    }
+   
 }
