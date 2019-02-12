@@ -17,7 +17,7 @@ node {
     // }
 
     stage("Docker Build") {
-            sh 'docker build --rm -f "Dockerfile" -t try_ci_cd .'
+            sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
         // dir("./src") {
         // }
         sh "docker tag ${imageName}:latest ${imageName}:${buildNumber}"
