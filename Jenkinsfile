@@ -24,8 +24,8 @@ node {
     }
     stage("Docker Push"){
             sh "docker login -u birkanazimech -p tugkan5441"
-            sh "docker push ${imageName}:latest"
-            sh "docker push ${imageName}:${buildNumber}"
+            sh "docker push birkanazimech/${imageName}:latest"
+            sh "docker push birkanazimech/${imageName}:${buildNumber}"
         // withCredentials([string(credentialsId: '63579a04-67b2-4b24-a646-6b2b330829be', variable: 'GITLAB_TOKEN')]) {
         // }
     }
