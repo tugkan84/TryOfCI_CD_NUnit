@@ -15,4 +15,10 @@ node {
     //     echo "Hello"
     //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
     // }
+    stage("Push to Docker"){
+
+        sshagent(['GitHub']) {
+            sh "git push origin docker"
+        }
+    }
 }
