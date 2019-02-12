@@ -20,7 +20,7 @@ node {
             sh 'docker build --rm -f "Dockerfile" -t try_ci_cd .'
         // dir("./src") {
         // }
-        sh "docker tag tryofci_cd_nunit:latest ${imageName}:${buildNumber}"
+        sh "docker tag ${imageName}:latest ${imageName}:${buildNumber}"
     }
     stage("Docker Push"){
         withCredentials([string(credentialsId: '63579a04-67b2-4b24-a646-6b2b330829be', variable: 'GITLAB_TOKEN')]) {
