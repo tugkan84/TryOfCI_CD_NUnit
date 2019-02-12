@@ -1,5 +1,4 @@
 node{
-    
      stage("Build"){
          
         sh 'dotnet build'
