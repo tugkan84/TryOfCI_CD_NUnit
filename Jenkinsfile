@@ -2,7 +2,7 @@ properties([pipelineTriggers([githubPush()])])
 
 node {
     stage ('Checkout'){
-        git branch: 'master', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
+        git branch: 'docker', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
     }
      stage("Build"){
         sh 'dotnet build'
@@ -16,6 +16,6 @@ node {
     //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
     // }
     stage("Push to Docker"){
-        sh 'git push origin docker'
+        sh 'git push origin master'
     }
 }
