@@ -9,9 +9,9 @@ namespace TryOfCI_CD_NUnit.Services
             return a + b;
         }
 
-        public string Merhaba()
-        {
-            return "Merhaba";
-        }
+        // public string Merhaba()
+        // {
+        //     return "Merhaba";
+        // }
     }
 }
