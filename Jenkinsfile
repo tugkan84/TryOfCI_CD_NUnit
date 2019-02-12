@@ -1,5 +1,6 @@
 properties([pipelineTriggers([githubPush()])])
 def imageName = 'try_ci_cd'
+def buildNumber = env.BUILD_NUMBER.toString()
 node {
     stage ('Checkout'){
         git branch: 'master', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
