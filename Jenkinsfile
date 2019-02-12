@@ -20,7 +20,7 @@ node {
             sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
         // dir("./src") {
         // }
-        sh "docker tag ${imageName}:latest ${imageName}:${buildNumber}"
+        sh "docker tag birkanazimech/${imageName}:latest birkanazimech/${imageName}:${buildNumber}"
     }
     stage("Docker Push"){
             sh "docker login -u birkanazimech -p tugkan5441"
