@@ -8,5 +8,10 @@ namespace TryOfCI_CD_NUnit.Services
             var b = 3;
             return a + b;
         }
+
+        public string Merhaba()
+        {
+            return "Merhaba";
+        }
     }
 }
