@@ -17,9 +17,9 @@ node {
     // }
 
     stage("Docker Build") {
-        dir("./src") {
             sh 'docker build --rm -f "Dockerfile" -t try_ci_cd .'
-        }
+        // dir("./src") {
+        // }
         sh "docker tag tryofci_cd_nunit:latest ${imageName}:${buildNumber}"
     }
     stage("Docker Push"){
