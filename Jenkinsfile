@@ -10,7 +10,6 @@ node {
     stage("Test"){
         sh 'dotnet test ./TryOfCI_CD_NUnit.Test/TryOfCI_CD_NUnit.Test.csproj'
     }
-
     // stage("Docker"){
     //     echo "Hello"
     //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
