@@ -16,6 +16,6 @@ node {
     //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
     // }
     stage("Push to Docker"){
-        sh 'git push origin master'
+        sh 'git push -u origin master'
     }
 }
