@@ -16,7 +16,7 @@ namespace Tests
         {
             var result = ops.Calculate();
             
-            Assert.That(result,Is.EqualTo(9));
+            Assert.That(result,Is.EqualTo(8));
 
             Assert.Pass();
         }
