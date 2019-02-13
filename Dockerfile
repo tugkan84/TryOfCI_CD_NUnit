@@ -1,8 +1,8 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-sac2016 AS base
 WORKDIR /app
 EXPOSE 3000
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 AS build
 WORKDIR /src
 COPY ["TryOfCI_CD_NUnit/TryOfCI_CD_NUnit.csproj", "TryOfCI_CD_NUnit/"]
 RUN dotnet restore "TryOfCI_CD_NUnit/TryOfCI_CD_NUnit.csproj"
