@@ -35,7 +35,6 @@ node {
     }
    }
     catch(e){
-        //sh "echo ${err}"
         def logUrl = "${env.BUILD_URL}/consoleText"
 
         httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: """{
