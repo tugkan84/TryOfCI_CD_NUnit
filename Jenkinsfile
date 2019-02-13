@@ -29,10 +29,9 @@ node {
     stage("Clear Docker Image"){
             sh "docker image rm birkanazimech/${imageName}:${buildNumber}"
     }
-    
-    stage("Docker Prune"){
 
-        sh 'docker image prune'
+    stage("Docker Prune"){
+        sh 'docker image prune -f'
     }
    }
     catch(err){
