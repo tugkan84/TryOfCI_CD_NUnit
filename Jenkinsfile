@@ -40,7 +40,7 @@ node {
     "text": "I am a test message http://slack.com",
     "attachments": [
         {
-            "text": "And here’s an attachment!"
+            "text": "And here’s an attachment! = ${err}"
         }
     ]
         }''', responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
