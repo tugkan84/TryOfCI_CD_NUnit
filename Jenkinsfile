@@ -35,7 +35,15 @@ node {
     }
    }
     catch(err){
-        sh "echo ${err}"
-        emailext body: "$err", subject: 'Jenkins error', to: 'birkan.tugcu@azimech.com'
+        //sh "echo ${err}"
+        httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: '''{
+    "text": "I am a test message http://slack.com",
+    "attachments": [
+        {
+            "text": "And here’s an attachment!"
+        }
+    ]
+        }''', responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
+        
     }
 }
