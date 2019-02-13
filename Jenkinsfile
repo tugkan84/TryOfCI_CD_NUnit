@@ -34,16 +34,16 @@ node {
         sh 'docker image prune -f'
     }
    }
-    catch(err){
+    catch(e){
         //sh "echo ${err}"
         httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: """{
     "text": "I am a test message http://slack.com",
     "attachments": [
         {
-            "text": "And here’s an attachment! = ${err}"
+            "text": "And here’s an attachment! = ${e.getMessage()} ; Stack Trace = ${e.getStackTrace().join('\n')}"
         }
                     ]
         }""", responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
-        
+        throw e
     }
 }
