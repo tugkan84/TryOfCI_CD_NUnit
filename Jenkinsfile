@@ -36,11 +36,13 @@ node {
    }
     catch(e){
         //sh "echo ${err}"
+        def log = "wget ${env.BUILD_URL}/consoleText -O console_text.txt"
+
         httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: """{
     "text": "I am a test message http://slack.com",
     "attachments": [
         {
-            "text": "And here’s an attachment! = ${e.getMessage()} ; Stack Trace = ${e.getStackTrace().join('\n')}"
+            "text": "And here’s an attachment! = ${e} ; Stack Trace = ${log}"
         }
                     ]
         }""", responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
