@@ -36,7 +36,7 @@ node {
    }
     catch(e){
         //sh "echo ${err}"
-        def log = "wget ${env.BUILD_URL}/consoleText -O console_text.txt"
+        def log = 'wget ${env.BUILD_URL}/consoleText -O console_text.txt'
 
         httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: """{
     "text": "I am a test message http://slack.com",
