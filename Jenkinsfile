@@ -11,10 +11,6 @@ node {
     stage("Test"){
         sh 'dotnet test ./TryOfCI_CD_NUnit.Test/TryOfCI_CD_NUnit.Test.csproj'
     }
-    // stage("Docker"){
-    //     echo "Hello"
-    //     //docker build --rm -f "Dockerfile" -t tryofci_cd_nunit:latest .
-    // }
 
     stage("Docker Build") {
             sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
@@ -29,5 +25,4 @@ node {
         // withCredentials([string(credentialsId: '63579a04-67b2-4b24-a646-6b2b330829be', variable: 'GITLAB_TOKEN')]) {
         // }
     }
-   
 }
