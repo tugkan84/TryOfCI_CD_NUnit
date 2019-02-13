@@ -36,5 +36,6 @@ node {
    }
     catch(err){
         sh "echo ${err}"
+        emailext body: "$err", subject: 'Jenkins error', to: 'birkan.tugcu@azimech.com'
     }
 }
