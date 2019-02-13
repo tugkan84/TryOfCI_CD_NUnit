@@ -36,14 +36,14 @@ node {
    }
     catch(err){
         //sh "echo ${err}"
-        httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: '''{
+        httpRequest httpMode: 'POST', ignoreSslErrors: true, requestBody: """{
     "text": "I am a test message http://slack.com",
     "attachments": [
         {
             "text": "And here’s an attachment! = ${err}"
         }
-    ]
-        }''', responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
+                    ]
+        }""", responseHandle: 'NONE', url: 'https://hooks.slack.com/services/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'
         
     }
 }
