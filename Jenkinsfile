@@ -22,22 +22,23 @@ node {
         sh 'dotnet test ./TryOfCI_CD_NUnit.Test/TryOfCI_CD_NUnit.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../../.sonarqube/coverage/api.opencover.xml'
     }
 
-      stage("Sonar End"){
+    stage("Sonar End"){
           withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
         sh 'dotnet sonarscanner end /d:sonar.login="$try"'
           }
     }
 
-    // stage("Sonar Analiz"){
+    stage("Sonar Analiz"){
 
-    //     withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
+         withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
     // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
     //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
-    //     }
-    //       def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId="
+            sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
+        }
+           def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
-    //         sh 'echo $response'
-    // }
+             sh 'echo $response'
+    }
     
 
 
