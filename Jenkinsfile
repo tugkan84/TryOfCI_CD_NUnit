@@ -1,4 +1,5 @@
 properties([pipelineTriggers([githubPush()])])
+import groovy.json.JsonSlurper
 def imageName = 'try_ci_cd'
 def buildNumber = env.BUILD_NUMBER.toString()
 node {
