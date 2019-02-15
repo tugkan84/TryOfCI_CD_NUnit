@@ -6,11 +6,24 @@ node {
     stage ('Checkout'){
         git branch: 'master', url: 'https://github.com/tugkan84/TryOfCI_CD_NUnit.git'
     }
+
+    stage("Sonar Begin"){
+        withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
+        sh 'dotnet sonarscanner begin /k:"try_cicdsonarkey" /d:sonar.organization="tugkan84-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$try"'
+        }
+    }
+
      stage("Build"){
         sh 'dotnet build'
     }
     stage("Test"){
-        sh 'dotnet test ./TryOfCI_CD_NUnit.Test/TryOfCI_CD_NUnit.Test.csproj'
+        sh 'dotnet test ./TryOfCI_CD_NUnit.Test/TryOfCI_CD_NUnit.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../../.sonarqube/coverage/api.opencover.xml'
+    }
+
+      stage("Sonar End"){
+          withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
+        sh 'dotnet sonarscanner end /d:sonar.login="$try"'
+          }
     }
 
     stage("Docker Build") {
