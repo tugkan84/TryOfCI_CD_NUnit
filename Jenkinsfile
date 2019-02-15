@@ -10,6 +10,7 @@ node {
     stage("Sonar Begin"){
         withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
         sh 'dotnet sonarscanner begin /k:"try_cicdsonarkey" /d:sonar.organization="tugkan84-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$try"'
+        ///d:sonar.exclusions="/wwwroot/lib/** eklersek lib içindekileri ignore eder
         }
     }
 
@@ -24,6 +25,29 @@ node {
           withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
         sh 'dotnet sonarscanner end /d:sonar.login="$try"'
           }
+    }
+
+    stage("Sonar Analiz"){
+        def props = utils.getProperties("target/sonar/report-task.txt")
+        echo "properties=${props}"
+        def sonarServerUrl=props.getProperty('serverUrl')
+        def ceTaskUrl= props.getProperty('ceTaskUrl')
+        def ceTask
+        def URL url = new URL(ceTaskUrl)
+          timeout(time: 1, unit: 'MINUTES') {
+            waitUntil {
+              ceTask = utils.jsonParse(url)
+              echo ceTask.toString()
+              return "SUCCESS".equals(ceTask["task"]["status"])
+            }
+          }
+          url = new URL(sonarServerUrl + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"] )
+          def qualitygate =  utils.jsonParse(url)
+          echo qualitygate.toString()
+          if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
+            error  "Quality Gate failure"
+          }
+
     }
 
     stage("Docker Build") {
