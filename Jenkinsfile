@@ -38,6 +38,8 @@ node {
           
     //         sh 'echo $response'
     // }
+    stages{
+
 
     stage("Docker Build") {
             sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
@@ -58,6 +60,7 @@ node {
 
     stage("Docker Prune"){
         sh 'docker image prune -f'
+    }
     }
    }
     catch(e){
