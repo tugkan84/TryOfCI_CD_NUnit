@@ -32,7 +32,8 @@ node {
 
           withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try_cicd')]) {  
               def password = env.try_cicd 
-             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication?validate=${password}"
+              curl -u "${password}": "https://sonarqube.com/api/user_tokens/search"
+            // httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication/login?login=asdasd&password=2133132"
              httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
     // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
     // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
