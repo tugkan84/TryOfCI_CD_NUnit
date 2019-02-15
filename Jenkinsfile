@@ -28,19 +28,19 @@ node {
           }
     }
 
-    stage("Sonar Analiz"){
-        withCredentials([usernamePassword(credentialsId: '5c0d42e1-a357-4cf1-a82f-c8c797a9f21f', passwordVariable: 'passKey', usernameVariable: 'userKey')]) {
+    // stage("Sonar Analiz"){
+    //     withCredentials([usernamePassword(credentialsId: '5c0d42e1-a357-4cf1-a82f-c8c797a9f21f', passwordVariable: 'passKey', usernameVariable: 'userKey')]) {
     
-             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication/login?login=${userKey}&password=${passKey}"
-             httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
-    // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
-    // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
-    //         sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
-         }
-    //        def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
+    //          httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication/login?login=${userKey}&password=${passKey}"
+    //          httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
+    // // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
+    // // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
+    // //         sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
+    //      }
+    // //        def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
-    //          sh 'echo $response'
-     }
+    // //          sh 'echo $response'
+    //  }
     
     stage("Docker Build") {
         
