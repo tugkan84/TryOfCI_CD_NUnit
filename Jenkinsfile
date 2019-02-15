@@ -39,7 +39,7 @@ node {
     //        def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
     //          sh 'echo $response'
-    // }
+     }
     
     stage("Docker Build") {
         
