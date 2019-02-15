@@ -30,12 +30,13 @@ node {
 
     stage("Sonar Analiz"){
 
-             httpRequest authentication: 'try_cicdsonarkey', httpMode: 'POST', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
-    //      withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
+          withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
+             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/authentication?validate=$try'
+             httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
     // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
     // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
     //         sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
-    //     }
+         }
     //        def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
     //          sh 'echo $response'
