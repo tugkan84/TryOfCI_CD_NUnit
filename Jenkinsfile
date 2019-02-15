@@ -31,7 +31,7 @@ node {
     stage("Sonar Analiz"){
 
        withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {
-       def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=${try}"
+       def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
        }
           def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
