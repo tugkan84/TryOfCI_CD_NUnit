@@ -1,5 +1,5 @@
 properties([pipelineTriggers([githubPush()])])
-import groovy.json.JsonSlurper
+
 def imageName = 'try_ci_cd'
 def buildNumber = env.BUILD_NUMBER.toString()
 node {
@@ -30,9 +30,9 @@ node {
 
     stage("Sonar Analiz"){
        // https://sonarcloud.io/api/ce/task?id=AWjv8YduMGo9u1NLDpjm
-          url = new URL("https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB" )
-          def card = new JsonSlurper().parse(url);
-            sh 'echo $card["tasks"]["status"]'
+          def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
+          
+            sh 'echo $response'
     }
 
     stage("Docker Build") {
