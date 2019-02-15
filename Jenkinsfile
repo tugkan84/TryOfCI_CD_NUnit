@@ -29,15 +29,9 @@ node {
     }
 
     stage("Sonar Analiz"){
-
-          withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try_cicd')]) {  
-              def password = env.try_cicd 
-              sh  '''
-              set +x
-              curl -u "$try": https://sonarcloud.io/api/user_tokens/search
-              '''
-              
-            // httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication/login?login=asdasd&password=2133132"
+        withCredentials([usernamePassword(credentialsId: '5c0d42e1-a357-4cf1-a82f-c8c797a9f21f', passwordVariable: 'passKey', usernameVariable: 'userKey')]) {
+    
+             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication/login?login=${userKey}&password=${passKey}"
              httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
     // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
     // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
