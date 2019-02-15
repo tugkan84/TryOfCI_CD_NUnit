@@ -30,8 +30,9 @@ node {
 
     stage("Sonar Analiz"){
 
-          withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
-             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/authentication?validate=$try'
+          withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try_cicd')]) {  
+              def password = env.try_cicd 
+             httpRequest httpMode: 'POST', consoleLogResponseBody: true, url: "https://sonarcloud.io/api/authentication?validate=${password}"
              httpRequest httpMode: 'GET', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
     // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
     // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
