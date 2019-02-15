@@ -38,10 +38,11 @@ node {
           
     //         sh 'echo $response'
     // }
-    stages{
+    
 
 
     stage("Docker Build") {
+        
             sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
 
         sh "docker tag birkanazimech/${imageName}:latest birkanazimech/${imageName}:${buildNumber}"
@@ -61,7 +62,7 @@ node {
     stage("Docker Prune"){
         sh 'docker image prune -f'
     }
-    }
+    
    }
     catch(e){
         def logUrl = "${env.BUILD_URL}/consoleText"
