@@ -30,18 +30,17 @@ node {
 
     stage("Sonar Analiz"){
 
-         withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
-    // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
-    //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
-            sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
-        }
-           def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
+             httpRequest authentication: 'try_cicdsonarkey', httpMode: 'POST', consoleLogResponseBody: true, url: 'https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB'
+    //      withCredentials([string(credentialsId: 'try_cicdsonarkey', variable: 'try')]) {   
+    // // //     def auth = httpRequest "https://sonarcloud.io/api/authentication?validate=$try"
+    // //         sh 'curl --data "validate=$try" https://sonarcloud.io/api/authentication'
+    //         sh  'curl -u $try: https://sonarcloud.io/api/user_tokens/search'
+    //     }
+    //        def response = httpRequest "https://sonarcloud.io/api/ce/activity?onlyCurrents=true&componentId=AWjv5epGO1eEjtclXbJB"
           
-             sh 'echo $response'
-    }
+    //          sh 'echo $response'
+    // }
     
-
-
     stage("Docker Build") {
         
             sh 'docker build --rm -f "Dockerfile" -t birkanazimech/try_ci_cd .'
